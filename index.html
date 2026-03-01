@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR - Python Developer | Observability, Code Intelligence, Security, Data Pipelines</title>
+    <meta name="description" content="Python developer building tools for observability, code intelligence, security analysis, and data pipelines. Houston, TX.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #151d2e;
+            --bg-code: #0d1117;
+            --accent-green: #22d3a7;
+            --accent-green-dim: #22d3a740;
+            --accent-blue: #3b82f6;
+            --accent-blue-dim: #3b82f640;
+            --accent-orange: #f59e0b;
+            --accent-orange-dim: #f59e0b40;
+            --accent-red: #ef4444;
+            --accent-red-dim: #ef444440;
+            --accent-purple: #a78bfa;
+            --accent-purple-dim: #a78bfa40;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dim: #06b6d440;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+            --border: #1e293b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(34, 211, 167, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 167, 0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 40%, transparent 100%);
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.08;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 600px; height: 600px;
+            background: var(--accent-green);
+            top: -200px; right: -200px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 400px; height: 400px;
+            background: var(--accent-blue);
+            bottom: -100px; left: -100px;
+            animation-delay: -7s;
+        }
+        .orb-3 {
+            width: 300px; height: 300px;
+            background: var(--accent-purple);
+            top: 50%; left: 50%;
+            animation-delay: -14s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 15px); }
+        }
+
+        .content-wrap { position: relative; z-index: 1; }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 14, 23, 0.85);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        nav .logo span { color: var(--accent-green); }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover { color: var(--accent-green); }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .hero-terminal {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            animation: fadeUp 0.7s ease-out;
+        }
+        .hero-terminal .prompt { color: var(--accent-green); }
+        .hero-terminal .cmd { color: var(--text-secondary); }
+        .hero-terminal .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--accent-green);
+            margin-left: 2px;
+            animation: blink 1.2s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 6.5vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -3px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.7s ease-out 0.1s both;
+        }
+        .hero h1 .line2 {
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeUp 0.7s ease-out 0.2s both;
+        }
+        .hero-tags {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            animation: fadeUp 0.7s ease-out 0.3s both;
+        }
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid;
+            font-weight: 500;
+        }
+        .tag-green { color: var(--accent-green); border-color: rgba(34,211,167,0.3); background: var(--accent-green-dim); }
+        .tag-blue { color: var(--accent-blue); border-color: rgba(59,130,246,0.3); background: var(--accent-blue-dim); }
+        .tag-orange { color: var(--accent-orange); border-color: rgba(245,158,11,0.3); background: var(--accent-orange-dim); }
+        .tag-red { color: var(--accent-red); border-color: rgba(239,68,68,0.3); background: var(--accent-red-dim); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        .divider {
+            max-width: 1100px;
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* --- PROJECT CATEGORIES --- */
+        .category {
+            margin-bottom: 3.5rem;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .cat-obs { background: linear-gradient(135deg, #134e3a, #0a2a20); color: var(--accent-green); }
+        .cat-intel { background: linear-gradient(135deg, #1e3a5f, #0d1b2a); color: var(--accent-blue); }
+        .cat-sec { background: linear-gradient(135deg, #4a1e1e, #2a0d0d); color: var(--accent-red); }
+        .cat-data { background: linear-gradient(135deg, #3a2a1e, #1b140d); color: var(--accent-orange); }
+        .cat-sys { background: linear-gradient(135deg, #2a1e3a, #140d1b); color: var(--accent-purple); }
+
+        .category-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .category-name span {
+            color: var(--text-dim);
+            font-weight: 400;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.8rem;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(34, 211, 167, 0.25);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 30px rgba(34,211,167,0.05);
+        }
+        .project-card:hover::after { opacity: 1; }
+
+        .project-card .project-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-card .project-name .arrow {
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.3s;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        .project-card:hover .project-name .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .project-card .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .project-tech {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .tech-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .project-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* --- STACK SECTION --- */
+        .stack-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .stack-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+        .stack-item:hover {
+            border-color: rgba(34, 211, 167, 0.3);
+            color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+        }
+        .about-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover {
+            background: #1ab892;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(34, 211, 167, 0.3);
+        }
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+        .info-card .info-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.3rem;
+        }
+        .info-card .info-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .info-card .info-sub {
+            color: var(--text-dim);
+            font-size: 0.78rem;
+            margin-top: 0.15rem;
+        }
+
+        /* --- INNOVATION CALLOUT --- */
+        .innovation {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 0 14px 14px 0;
+            padding: 2rem 2.5rem;
+            margin-top: 3rem;
+        }
+        .innovation h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
+        }
+        .innovation h3 a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+        .innovation h3 a:hover { text-decoration: underline; }
+        .innovation p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        .innovation .stat-row {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 1rem;
+        }
+        .innovation .mini-stat .val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+        .innovation .mini-stat .lbl {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover { color: var(--accent-green); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .project-row { grid-template-columns: 1fr; }
+            .project-card.full-width { grid-column: auto; }
+            .about-grid { grid-template-columns: 1fr; }
+            .info-cards { grid-template-columns: 1fr; }
+            .hero h1 { letter-spacing: -1.5px; }
+            .innovation .stat-row { gap: 1.5rem; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="content-wrap">
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo"><span>MR</span> // developer</div>
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://github.com/MRJR0101">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-terminal">
+            <span class="prompt">~</span> <span class="cmd">whoami</span><span class="cursor"></span>
+        </div>
+        <h1>
+            I build tools<br>
+            <span class="line2">that see what code can't.</span>
+        </h1>
+        <p class="subtitle">
+            Python developer focused on observability, static code intelligence, 
+            security analysis, and data pipelines. Everything local-first. 
+            Everything vendor-neutral.
+        </p>
+        <div class="hero-tags">
+            <span class="tag tag-green">Observability</span>
+            <span class="tag tag-blue">Code Intelligence</span>
+            <span class="tag tag-red">Security Tooling</span>
+            <span class="tag tag-orange">Data Pipelines</span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="section-label">// Projects</div>
+        <h2 class="section-title">What I'm building.</h2>
+        <p class="section-desc">
+            Open source tools designed for developers who want visibility into their 
+            systems without vendor lock-in or infrastructure overhead.
+        </p>
+
+        <!-- Runtime Observability -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon cat-obs">OB</div>
+                <div class="category-name">Runtime Observability</div>
+            </div>
+            <div class="project-row">
+                <a href="https://github.com/MRJR0101/Eye-Witness" class="project-card full-width">
+                    <div class="project-name">Eye-Witness <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Unified structured logging (structlog), error tracking (Sentry SDK), and distributed 
+                        tracing (OpenTelemetry) for Python CLI applications. One import gives you production-grade 
+                        observability. Local-first, vendor-neutral, zero config required.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">structlog</span>
+                        <span class="tech-pill">OpenTelemetry</span>
+                        <span class="tech-pill">Sentry SDK</span>
+                        <span class="tech-pill">JSON logging</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Static Code Intelligence -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon cat-intel">CI</div>
+                <div class="category-name">Static Code Intelligence</div>
+            </div>
+            <div class="project-row">
+                <a href="https://github.com/MRJR0101/CodeGraphX" class="project-card full-width">
+                    <div class="project-name">CodeGraphX <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Tree-sitter powered code analysis pipeline with 14 CLI commands. Scan, parse, extract, 
+                        query, search, compare, and analyze entire codebases. Uses Neo4j for graph storage, 
+                        enabling relationship-based code intelligence at scale.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">tree-sitter</span>
+                        <span class="tech-pill">Neo4j</span>
+                        <span class="tech-pill">typer</span>
+                        <span class="tech-pill">AST analysis</span>
+                        <span class="tech-pill">14 commands</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Security Tooling -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon cat-sec">SE</div>
+                <div class="category-name">Security Tooling</div>
+            </div>
+            <div class="project-row">
+                <a href="https://github.com/MRJR0101/BinaryGuard" class="project-card">
+                    <div class="project-name">BinaryGuard <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Binary and file security analysis toolkit. Inspect, scan, and flag suspicious 
+                        patterns in compiled binaries and arbitrary files.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">binary analysis</span>
+                        <span class="tech-pill">file scanning</span>
+                    </div>
+                </a>
+                <a href="https://github.com/MRJR0101/DreamExtractor" class="project-card">
+                    <div class="project-name">DreamExtractor <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Data extraction and domain analysis. Pull structured data from unstructured 
+                        sources with domain-aware intelligence.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">data extraction</span>
+                        <span class="tech-pill">domain analysis</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Data Pipelines -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon cat-data">DP</div>
+                <div class="category-name">Data Pipelines</div>
+            </div>
+            <div class="project-row">
+                <a href="https://github.com/MRJR0101/pipeline_suite" class="project-card">
+                    <div class="project-name">pipeline_suite <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Orchestrated data processing pipelines with feed handling, encoding safety, 
+                        and built-in reporting. Designed for reliability over speed.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">orchestration</span>
+                        <span class="tech-pill">ETL</span>
+                        <span class="tech-pill">feed processing</span>
+                    </div>
+                </a>
+                <a href="https://github.com/MRJR0101/unified_url_toolkit" class="project-card">
+                    <div class="project-name">unified_url_toolkit <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        URL extraction, normalization, validation, and trait enrichment. 
+                        DNS, WHOIS, TLS analysis in a single pipeline.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">URL processing</span>
+                        <span class="tech-pill">DNS</span>
+                        <span class="tech-pill">WHOIS</span>
+                        <span class="tech-pill">TLS</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- System Tools -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon cat-sys">ST</div>
+                <div class="category-name">System Tools</div>
+            </div>
+            <div class="project-row">
+                <a href="https://github.com/MRJR0101/SystemAuditor" class="project-card">
+                    <div class="project-name">SystemAuditor <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        System auditing and environment analysis. Inventory your runtime, 
+                        dependencies, and configuration state.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">system audit</span>
+                        <span class="tech-pill">CLI</span>
+                    </div>
+                </a>
+                <a href="https://github.com/MRJR0101/ProjectCatalog" class="project-card">
+                    <div class="project-name">ProjectCatalog <span class="arrow">-></span></div>
+                    <div class="project-desc">
+                        Project inventory and metadata cataloging. Track what you've built, 
+                        where it lives, and what it depends on.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">metadata</span>
+                        <span class="tech-pill">catalog</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- STACK -->
+    <section id="stack">
+        <div class="section-label">// Stack</div>
+        <h2 class="section-title">Tools of the trade.</h2>
+        <p class="section-desc">
+            Python-first. Production-grade libraries. No unnecessary abstractions.
+        </p>
+        <div class="stack-grid">
+            <div class="stack-item">Python</div>
+            <div class="stack-item">PowerShell</div>
+            <div class="stack-item">structlog</div>
+            <div class="stack-item">OpenTelemetry</div>
+            <div class="stack-item">Sentry SDK</div>
+            <div class="stack-item">tree-sitter</div>
+            <div class="stack-item">Neo4j</div>
+            <div class="stack-item">aiohttp</div>
+            <div class="stack-item">typer</div>
+            <div class="stack-item">rich</div>
+            <div class="stack-item">pydantic</div>
+            <div class="stack-item">PostgreSQL</div>
+            <div class="stack-item">Flask</div>
+            <div class="stack-item">FastAPI</div>
+            <div class="stack-item">Celery</div>
+            <div class="stack-item">BeautifulSoup</div>
+            <div class="stack-item">Selenium</div>
+            <div class="stack-item">Git</div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-label">// About</div>
+        <h2 class="section-title">Michael Rawls, Jr.</h2>
+
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    I spent 24 years solving problems across operations management, electrical work, 
+                    commercial solar, and systems installation before teaching myself to code. That 
+                    background means I build tools that work in production, not just in demos.
+                </p>
+                <p>
+                    Everything I build follows a few principles: local-first so it works without 
+                    internet, vendor-neutral so you're never locked in, and documented so the next 
+                    person (or the next AI session) can pick up where I left off.
+                </p>
+                <div class="about-links">
+                    <a href="https://github.com/MRJR0101" class="btn btn-primary">GitHub</a>
+                    <a href="https://www.linkedin.com/in/michael-rawls-jr" class="btn btn-outline">LinkedIn</a>
+                    <a href="mailto:rawlsjrm@gmail.com" class="btn btn-outline">Contact</a>
+                </div>
+            </div>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-label">Education</div>
+                    <div class="info-value">A.A.S. Cybersecurity</div>
+                    <div class="info-sub">Alvin Community College</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Certifications</div>
+                    <div class="info-value">CompTIA A+ & Network+</div>
+                    <div class="info-sub">Industry recognized</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Focus</div>
+                    <div class="info-value">Developer Tooling</div>
+                    <div class="info-sub">Observability & security</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">Houston, TX</div>
+                    <div class="info-sub">Open to remote</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Inline Learning callout -->
+        <div class="innovation">
+            <h3><a href="https://mrjr0101.github.io/AI-Inline-Learning">AI Inline Learning</a></h3>
+            <p>
+                A novel pattern for persistent AI agent learning through inline code comments. 
+                AI writes structured warnings at exact failure points. Future AI sessions read 
+                those warnings and avoid the same mistakes. Zero infrastructure required.
+            </p>
+            <div class="stat-row">
+                <div class="mini-stat">
+                    <div class="val">60%+</div>
+                    <div class="lbl">Error reduction</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="val">30+</div>
+                    <div class="lbl">Papers researched</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="val">0</div>
+                    <div class="lbl">Infrastructure needed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span>Built with plain HTML and CSS. No frameworks, no tracking.</span>
+        <a href="https://github.com/MRJR0101">github.com/MRJR0101</a>
+    </footer>
+
+</div>
+
+</body>
+</html>
