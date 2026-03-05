@@ -17,3 +17,9 @@ dist/
 # IDE
 .vscode/
 .idea/
+
+# Local QA/build artifacts (managed)
+*.egg-info/
+.pytest_tmp/
+.pytest_tmp_qwf/
+.ruff_cache/
