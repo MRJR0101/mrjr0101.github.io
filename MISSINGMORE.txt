@@ -1,0 +1,46 @@
+MISSINGMORE - mrjr0101.github.io
+Last Updated: 2026-03-04
+========================================
+
+## STATUS
+COMPLETE portfolio website. index.html is a full production-quality single-page
+site (850 lines) with navigation, projects section, stack section, about section,
+and footer. Has .git and .github/workflows.
+
+## WHAT IS MISSING
+
+### Deployment Status
+1. NOT CONFIRMED whether this is live at https://mrjr0101.github.io
+   GitHub Pages must be enabled in repo settings (Settings > Pages > Branch: main)
+   The _incoming_root/ folder suggests content staging was planned
+   Action: check if GitHub Pages is enabled
+
+### Accuracy Issues
+2. README in MRJR0101 says "Eye-Witness: coming soon"
+   But mrjr0101.github.io/index.html already shows Eye-Witness as a full project card
+   with a GitHub link - update README to reflect current status
+
+3. Website links to https://github.com/MRJR0101/pipeline_suite
+   and https://github.com/MRJR0101/unified_url_toolkit
+   - Neither of these have been confirmed as pushed to GitHub
+   - These links will 404 if repos don't exist
+
+4. Website links to BinaryGuard and DreamExtractor
+   - DreamExtractor not yet pushed
+   - BinaryGuard GitHub status not confirmed
+
+5. Website links to https://github.com/MRJR0101/ProjectCatalog
+   - ProjectCatalog GitHub status not confirmed
+
+### Missing Features
+6. No favicon
+7. No Open Graph meta tags (og:title, og:description, og:image)
+   Needed for good social share previews
+8. _incoming_root/ folder - purpose unclear, may contain drafts
+
+## NOTES
+- Site is plain HTML/CSS, no frameworks - intentional per footer text
+- AI Inline Learning callout links to https://mrjr0101.github.io/AI-Inline-Learning
+  (requires separate GitHub Pages site or subdirectory for AI-Inline-Learning)
+
+========================================

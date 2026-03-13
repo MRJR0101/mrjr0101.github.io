@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Rawls Jr. | Python Developer & AI Innovator | Houston TX</title>
+    <meta name="description" content="Python developer. 190+ utilities across 25 categories, 11 standalone production systems. Creator of AI Inline Learning. Web scraping, SEO automation, data pipelines. Houston, TX.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #151d2e;
+            --bg-code: #0d1117;
+            --accent-green: #22d3a7;
+            --accent-green-dim: #22d3a740;
+            --accent-blue: #3b82f6;
+            --accent-blue-dim: #3b82f640;
+            --accent-orange: #f59e0b;
+            --accent-orange-dim: #f59e0b40;
+            --accent-red: #ef4444;
+            --accent-red-dim: #ef444440;
+            --accent-purple: #a78bfa;
+            --accent-purple-dim: #a78bfa40;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dim: #06b6d440;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+            --border: #1e293b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(34, 211, 167, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 167, 0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 40%, transparent 100%);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.08;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 600px; height: 600px; background: var(--accent-green); top: -200px; right: -200px; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: var(--accent-blue); bottom: -100px; left: -100px; animation-delay: -7s; }
+        .orb-3 { width: 300px; height: 300px; background: var(--accent-purple); top: 50%; left: 50%; animation-delay: -14s; }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 15px); }
+        }
+
+        .content-wrap { position: relative; z-index: 1; }
+
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 14, 23, 0.85);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.15rem; color: var(--text-primary); letter-spacing: -0.5px; }
+        nav .logo span { color: var(--accent-green); }
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+        nav ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--accent-green); }
+
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s ease-out;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 6.5vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -3px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.7s ease-out 0.1s both;
+        }
+        .hero h1 .line2 { color: var(--text-dim); font-weight: 300; }
+        .hero .subtitle {
+            font-size: 1.15rem; color: var(--text-secondary);
+            max-width: 640px; margin-bottom: 2.5rem; font-weight: 300;
+            line-height: 1.8;
+            animation: fadeUp 0.7s ease-out 0.2s both;
+        }
+        .hero-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; animation: fadeUp 0.7s ease-out 0.3s both; }
+        .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 0.35rem 0.8rem; border-radius: 6px; border: 1px solid; font-weight: 500; }
+        .tag-green { color: var(--accent-green); border-color: rgba(34,211,167,0.3); background: var(--accent-green-dim); }
+        .tag-blue  { color: var(--accent-blue);  border-color: rgba(59,130,246,0.3);  background: var(--accent-blue-dim); }
+        .tag-orange{ color: var(--accent-orange); border-color: rgba(245,158,11,0.3);  background: var(--accent-orange-dim); }
+        .tag-purple{ color: var(--accent-purple); border-color: rgba(167,139,250,0.3); background: var(--accent-purple-dim); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+        .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
+        .section-desc { color: var(--text-secondary); font-size: 1.05rem; max-width: 650px; margin-bottom: 3rem; font-weight: 300; }
+        .divider { max-width: 1100px; margin: 0 auto; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .project-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 1.8rem; transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+            text-decoration: none; color: inherit; display: block;
+            position: relative; overflow: hidden;
+        }
+        .project-card::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+            opacity: 0; transition: opacity 0.35s;
+        }
+        .project-card:hover { transform: translateY(-4px); border-color: rgba(34,211,167,0.25); box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 30px rgba(34,211,167,0.05); }
+        .project-card:hover::after { opacity: 1; }
+        .project-card.span-2 { grid-column: 1 / -1; }
+        .project-name { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--accent-green); margin-bottom: 0.5rem; }
+        .project-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent-orange); margin-bottom: 0.6rem; }
+        .project-desc { color: var(--text-secondary); font-size: 0.88rem; font-weight: 300; line-height: 1.6; margin-bottom: 1rem; }
+        .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .tech-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-dim); }
+
+        .innovation-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 0 14px 14px 0;
+            padding: 2.5rem 3rem;
+            margin-bottom: 2rem;
+        }
+        .innovation-block h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+        .innovation-block h3 span { color: var(--accent-green); }
+        .innovation-block .inno-desc { color: var(--text-secondary); font-size: 1rem; font-weight: 300; line-height: 1.8; max-width: 700px; margin-bottom: 1.5rem; }
+        .stat-row { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .mini-stat .val { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--accent-green); }
+        .mini-stat .lbl { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.1rem; }
+
+        .pattern-block {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-top: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+        }
+        .pattern-block .c-tag  { color: var(--accent-green); }
+        .pattern-block .c-key  { color: var(--accent-orange); }
+        .pattern-block .c-val  { color: var(--text-secondary); }
+
+        .stack-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .stack-item { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; padding: 0.5rem 1rem; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); transition: all 0.3s; }
+        .stack-item:hover { border-color: rgba(34,211,167,0.3); color: var(--accent-green); transform: translateY(-2px); }
+
+        .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: start; }
+        .about-text p { color: var(--text-secondary); font-size: 1rem; font-weight: 300; margin-bottom: 1.2rem; line-height: 1.8; }
+        .timeline { margin-top: 1.5rem; border-left: 2px solid var(--border); padding-left: 1.5rem; }
+        .tl-item { margin-bottom: 1.2rem; position: relative; }
+        .tl-item::before { content: ''; position: absolute; left: -1.65rem; top: 0.55rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); }
+        .tl-item .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent-green); margin-bottom: 0.15rem; }
+        .tl-item .tl-role { font-size: 0.9rem; font-weight: 600; }
+        .tl-item .tl-note { font-size: 0.8rem; color: var(--text-dim); }
+        .about-links { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 10px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.3s; }
+        .btn-primary { background: var(--accent-green); color: var(--bg-primary); }
+        .btn-primary:hover { background: #1ab892; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(34,211,167,0.3); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text-primary); background: transparent; }
+        .btn-outline:hover { border-color: var(--accent-green); color: var(--accent-green); }
+
+        .info-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+        .info-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.3rem; }
+        .info-value { font-size: 0.95rem; font-weight: 600; }
+        .info-sub { color: var(--text-dim); font-size: 0.78rem; margin-top: 0.15rem; }
+
+        footer { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--text-dim); font-size: 0.85rem; }
+        footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: var(--accent-green); }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .project-grid { grid-template-columns: 1fr; }
+            .project-card.span-2 { grid-column: auto; }
+            .about-grid { grid-template-columns: 1fr; }
+            .info-cards { grid-template-columns: 1fr; }
+            .hero h1 { letter-spacing: -1.5px; }
+            .stat-row { gap: 1.5rem; }
+            .innovation-block { padding: 1.8rem; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="content-wrap">
+
+    <nav>
+        <div class="logo"><span>MR</span> // developer</div>
+        <ul>
+            <li><a href="#innovation">AI Inline Learning</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://github.com/MRJR0101">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-eyebrow">// Python Developer &amp; AI Innovator -- Houston, TX</div>
+        <h1>
+            24 years of ops.<br>
+            <span class="line2">Turned into code.</span>
+        </h1>
+        <p class="subtitle">
+            I taught myself Python in 2024 and built 190+ utilities and 11 standalone production systems in less than a year.
+            Along the way I discovered AI Inline Learning -- a novel pattern for persistent
+            AI agent collaboration that reduces repeated errors by 60%+. No infrastructure required.
+        </p>
+        <div class="hero-tags">
+            <span class="tag tag-green">AI Inline Learning</span>
+            <span class="tag tag-blue">Web Scraping</span>
+            <span class="tag tag-orange">SEO Automation</span>
+            <span class="tag tag-purple">Cybersecurity Student</span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- INNOVATION -->
+    <section id="innovation">
+        <div class="section-label">// Innovation</div>
+        <h2 class="section-title">AI Inline Learning.</h2>
+        <p class="section-desc">
+            A novel pattern I discovered in December 2024. Research-validated against 30+ academic
+            papers. Nobody was doing this.
+        </p>
+
+        <div class="innovation-block">
+            <h3>The Problem: <span>AI forgets everything.</span></h3>
+            <p class="inno-desc">
+                AI coding assistants make the same mistakes repeatedly across sessions because they
+                have no persistent memory. Traditional solutions require external memory databases,
+                complex protocols, or infrastructure overhead. I found a simpler answer by accident --
+                I was just tired of seeing the same Unicode error for the third time in one afternoon.
+            </p>
+            <h3 style="margin-top:1.5rem;">The Solution: <span>Put the warning where the mistake happens.</span></h3>
+            <p class="inno-desc">
+                Instead of external memory, embed structured learning comments directly in the code
+                at the exact decision point where an AI went wrong. Future AI sessions read the
+                codebase, find the warning, and skip the mistake. The code itself becomes the knowledge base.
+                Zero setup. Zero infrastructure. Works in any language.
+            </p>
+
+            <div class="pattern-block">
+                <span class="c-tag"># HEY CLAUDE:</span> <span class="c-val">Slow down! Remember the Unicode disaster?</span><br>
+                <span class="c-key"># MISTAKE:</span> <span class="c-val">Used fancy arrow chars in PowerShell output -- 2024-12-26</span><br>
+                <span class="c-key"># LESSON:</span> <span class="c-val">Windows console encoding breaks with non-ASCII -- "missing terminator" error</span><br>
+                <span class="c-key"># RULE:</span> <span class="c-val">ASCII-only in PowerShell. Always. Use -&gt; and [OK] instead.</span>
+            </div>
+
+            <div class="stat-row">
+                <div class="mini-stat"><div class="val">60%+</div><div class="lbl">Reduction in repeated errors</div></div>
+                <div class="mini-stat"><div class="val">30+</div><div class="lbl">Academic papers reviewed</div></div>
+                <div class="mini-stat"><div class="val">0</div><div class="lbl">Infrastructure required</div></div>
+                <div class="mini-stat"><div class="val">190+</div><div class="lbl">Utilities and systems using the pattern</div></div>
+            </div>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.88rem;">
+            Researched against Spark (Nov 2024), MemGPT, ChatDev, Google A2A, and 25+ additional papers.
+            None used inline comments as the primary AI-to-AI learning mechanism. Pattern published on
+            <a href="https://www.linkedin.com/in/michael-rawls-jr" style="color: var(--accent-green); text-decoration: none;">LinkedIn</a>
+            and documented on <a href="https://github.com/MRJR0101/AI-Inline-Learning" style="color: var(--accent-green); text-decoration: none;">GitHub</a>.
+        </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="section-label">// Projects</div>
+        <h2 class="section-title">190+ utilities. 11 production systems.</h2>
+        <p class="section-desc">
+            Production-grade Python tools for web scraping, SEO intelligence, and data automation.
+            Built in under a year. All real. All running.
+        </p>
+
+        <div class="project-grid">
+
+            <a href="https://github.com/MRJR0101/AI-Inline-Learning" class="project-card span-2">
+                <div class="project-name">AI-Inline-Learning</div>
+                <div class="project-stat">Novel AI collaboration pattern -- Research validated</div>
+                <div class="project-desc">
+                    Open-source documentation of the AI Inline Learning pattern. Includes methodology,
+                    academic research comparison, before/after code examples across Python and PowerShell,
+                    and a metrics analysis showing 60%+ error reduction. The flagship repo.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">PowerShell</span>
+                    <span class="tech-pill">Methodology</span>
+                    <span class="tech-pill">Research</span>
+                    <span class="tech-pill">AI Agents</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/MRJR0101" class="project-card">
+                <div class="project-name">UltimateScraper</div>
+                <div class="project-stat">30+ specialized scrapers -- 500K+ URLs processed -- 95%+ accuracy</div>
+                <div class="project-desc">
+                    Consolidated web scraping platform that unifies 30+ specialized scrapers under one
+                    interface. Handles batch processing, rate limiting, retry logic, and CSV/JSON/Excel
+                    export. Built with AI Inline Learning patterns throughout to prevent repeated failures.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">BeautifulSoup</span>
+                    <span class="tech-pill">Scrapy</span>
+                    <span class="tech-pill">Selenium</span>
+                    <span class="tech-pill">pandas</span>
+                    <span class="tech-pill">aiohttp</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/MRJR0101" class="project-card">
+                <div class="project-name">SEOIndexerBOT</div>
+                <div class="project-stat">93.5% success rate -- Production metadata collection</div>
+                <div class="project-desc">
+                    Automated URL indexing and metadata collection system built for production reliability.
+                    Processes large URL batches, collects page-level SEO signals, and exports structured
+                    data for competitive analysis. Proven 93.5% success rate across real workloads.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">requests</span>
+                    <span class="tech-pill">SQLite</span>
+                    <span class="tech-pill">lxml</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+        <div class="project-grid" style="margin-top: 1rem;">
+            <a href="https://github.com/MRJR0101" class="project-card">
+                <div class="project-name">LinkTools v3.0</div>
+                <div class="project-stat">26 plugins -- 10,000+ URLs processed daily</div>
+                <div class="project-desc">
+                    URL processing and validation toolkit with 26 production plugins. Handles link
+                    extraction, normalization, duplicate detection, and bulk validation at scale.
+                    Exports to CSV, JSON, and Excel for downstream analysis and reporting.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">regex</span>
+                    <span class="tech-pill">pandas</span>
+                    <span class="tech-pill">concurrent.futures</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/MRJR0101" class="project-card">
+                <div class="project-name">MainScraper</div>
+                <div class="project-stat">Modular architecture -- 26+ specialized plugins</div>
+                <div class="project-desc">
+                    Plugin-based scraping framework with a consistent interface across 26+ specialized
+                    scrapers. Each plugin targets a specific data source or site structure. Supports
+                    resumable sessions, state persistence, and comprehensive error logging.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">BeautifulSoup</span>
+                    <span class="tech-pill">pickle</span>
+                    <span class="tech-pill">logging</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/MRJR0101" class="project-card span-2">
+                <div class="project-name">SEO Intelligence Database</div>
+                <div class="project-stat">200M+ unique URLs aggregated -- Competitive intelligence at scale</div>
+                <div class="project-desc">
+                    Proprietary database of 200+ million unique URLs built through automated web scraping
+                    across the full project ecosystem. Structured storage with deduplication and validation enables
+                    rapid competitive analysis, broken link detection, and backlink intelligence.
+                    The backbone behind every SEO tool in the portfolio.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">PostgreSQL</span>
+                    <span class="tech-pill">SQLite</span>
+                    <span class="tech-pill">pandas</span>
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">Flask API</span>
+                    <span class="tech-pill">Celery</span>
+                </div>
+            </a>
+
+        </div>
+
+    <div class="divider" style="margin-top: 5rem;"></div>
+
+    <!-- STACK -->
+    <section id="stack">
+        <div class="section-label">// Stack</div>
+        <h2 class="section-title">Tools I actually use.</h2>
+        <p class="section-desc">Python-first. Production libraries. No unnecessary abstractions.</p>
+        <div class="stack-grid">
+            <div class="stack-item">Python</div>
+            <div class="stack-item">BeautifulSoup</div>
+            <div class="stack-item">Scrapy</div>
+            <div class="stack-item">Selenium</div>
+            <div class="stack-item">aiohttp</div>
+            <div class="stack-item">requests</div>
+            <div class="stack-item">pandas</div>
+            <div class="stack-item">lxml</div>
+            <div class="stack-item">Flask</div>
+            <div class="stack-item">FastAPI</div>
+            <div class="stack-item">Celery</div>
+            <div class="stack-item">PostgreSQL</div>
+            <div class="stack-item">SQLite</div>
+            <div class="stack-item">PowerShell</div>
+            <div class="stack-item">Git</div>
+            <div class="stack-item">Linux / WSL</div>
+            <div class="stack-item">regex</div>
+            <div class="stack-item">CompTIA A+</div>
+            <div class="stack-item">CompTIA Network+</div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-label">// About</div>
+        <h2 class="section-title">Michael Rawls, Jr.</h2>
+
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    I spent 24 years solving real problems -- managing Popeyes locations and winning national
+                    consumer awards, wiring commercial solar arrays for Ford and H-E-B, diagnosing septic systems
+                    by thinking through what you can't see. In 2024 I picked up Python seriously and built
+                    190+ utilities and 11 standalone production systems in under a year.
+                </p>
+                <p>
+                    That background changes how I approach code. I don't build demos. I build things that have
+                    to work the first time, handle failure gracefully, and solve a real business problem.
+                    The AI Inline Learning pattern came out of that same mindset -- I was just tired of
+                    repeating myself to an AI that kept making the same mistake.
+                </p>
+                <p>
+                    Currently pursuing my A.A.S. in Cybersecurity at Alvin Community College (GPA 3.0)
+                    while building an AI-enhanced SEO audit service. CompTIA A+ and Network+ certified.
+                    Looking for Python development, SEO automation, or data analyst roles where
+                    operational thinking meets technical execution.
+                </p>
+
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-year">2024 -- Present</div>
+                        <div class="tl-role">Python Developer + Cybersecurity Student</div>
+                        <div class="tl-note">190+ utilities, 11 standalone systems, AI Inline Learning</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-year">2023</div>
+                        <div class="tl-role">Electrical Apprentice -- Spear Commercial</div>
+                        <div class="tl-note">Commercial solar for Ford, H-E-B, Shiner Bock</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-year">2021 -- 2024</div>
+                        <div class="tl-role">Installation Technician -- Stavinoha Cabinets</div>
+                        <div class="tl-note">100+ installs, 95% zero-rework rate</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-year">2011 -- 2021</div>
+                        <div class="tl-role">Installer &amp; Technician -- A-OK Aerobic</div>
+                        <div class="tl-note">Systems thinking, regulatory compliance, TCEQ certified</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-year">1997 -- 2006</div>
+                        <div class="tl-role">Area Manager -- Popeyes Louisiana Kitchen</div>
+                        <div class="tl-note">$4M+ operations, National Consumer Award x3</div>
+                    </div>
+                </div>
+
+                <div class="about-links">
+                    <a href="https://github.com/MRJR0101" class="btn btn-primary">GitHub</a>
+                    <a href="https://www.linkedin.com/in/michael-rawls-jr" class="btn btn-outline">LinkedIn</a>
+                    <a href="mailto:rawlsjrm@gmail.com" class="btn btn-outline">Email</a>
+                </div>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-label">Education</div>
+                    <div class="info-value">A.A.S. Cybersecurity</div>
+                    <div class="info-sub">Alvin Community College -- GPA 3.0</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Certifications</div>
+                    <div class="info-value">CompTIA A+ &amp; Network+</div>
+                    <div class="info-sub">Industry recognized</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Projects Built</div>
+                    <div class="info-value">190+ Utilities, 11 Systems</div>
+                    <div class="info-sub">Built in under 12 months</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">Houston, TX</div>
+                    <div class="info-sub">Open to remote</div>
+                </div>
+                <div class="info-card" style="grid-column: 1 / -1;">
+                    <div class="info-label">Innovation</div>
+                    <div class="info-value">AI Inline Learning</div>
+                    <div class="info-sub">Novel AI agent collaboration pattern -- December 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span>Plain HTML and CSS. No frameworks. No tracking. No fluff.</span>
+        <a href="https://github.com/MRJR0101">github.com/MRJR0101</a>
+    </footer>
+
+</div>
+</body>
+</html>
