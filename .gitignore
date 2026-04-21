@@ -26,3 +26,9 @@ dist/
 
 # Internal ops/quality workflow files -- not for public repos
 MISSINGMORE
+
+# Local working files
+_STRUCTURE.txt
+_incoming_root/
+*.draft.html
+
