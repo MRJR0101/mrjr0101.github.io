@@ -2,13 +2,9 @@
 
 Portfolio site for **Michael Rawls, Jr.** -- Python developer, AI innovator, and cybersecurity student based in Houston, TX.
 
-<<<<<<< Updated upstream
-Live: [mrjr0101.github.io](https://mrjr0101.github.io)
-=======
 [![Live Site Preview](https://image.thum.io/get/width/1280/crop/800/https://mrjr0101.github.io/)](https://mrjr0101.github.io/)
 
 > **[View Live Site](https://mrjr0101.github.io)**
->>>>>>> Stashed changes
 
 ---
 
